@@ -1,0 +1,3 @@
+User-agent: *
+Allow:/
+sitemap: https://tender-brown-cc115e.netlify.app/sitemap.xml

@@ -5,6 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="naver-site-verification" content="903967463b44e4ebc76647d5994ee3b376312b22" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -14,7 +15,6 @@
     <link href="https://fonts.googleapis.com/css?family=Jua&display=swap" rel="stylesheet">
     <!-- Go to www.addthis.com/dashboard to customize your tools -->
 <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5ea75150030b1b98"></script>
-<meta name="naver-site-verification" content="903967463b44e4ebc76647d5994ee3b376312b22" />
 
 </head>
 
@@ -66,7 +66,7 @@
                 <div class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <p class="text-center">AI가 당신의 동물상을 분석중입니다.</p>
+                <p class="text-center">AI가 당신의 얼굴을 분석중입니다.</p>
             </div>
             <p class="result-message"></p>
             <div id="label-container" class="d-flex flex-column justify-content-around"></div>
@@ -116,7 +116,7 @@
 <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
-                    <button type="button p-2" class="try-again-btn" onclick="gaReload2();">
+                    <button type="button p-2" class="try-again-btn" onclick="gaReload1();">
                         <span class="try-again-text">다른 사진으로 재시도</span>
                     </button>
                 </div>
@@ -124,7 +124,7 @@
         </div>
     </div>
     <script>
-         function gaReload2() {  
+         function gaReload1() {  
        location.reload();
 }
     </script>
@@ -154,6 +154,7 @@
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     $('.image-upload-wrap').hide();
+                    $('#loading').show();
                     $('.file-upload-image').attr('src', e.target.result);
                     $('.file-upload-content').show();
                     $('.image-title').html(input.files[0].name);
@@ -162,6 +163,7 @@
                 init().then(()=>{
                     console.log("hello");
                     predict();
+                    $('#loading').hide();
                 });
             } else {
                 removeUpload();
@@ -227,6 +229,8 @@
                 case "Ma Dong Suk":
                     resultMessege = "마동석"
                     break;
+                 default:
+                    resultMessege = "수지"
             }
             $('.result-message').html(resultMessege);
              var barWidth;
@@ -259,6 +263,10 @@
                     case "Ma Dong Suk":
                         labelTitle = "마동석"
                         resultExplain ="MaDongSuk"
+                        break;
+                    default:
+                    labelTitle = "수지"
+                        resultExplain ="Suji"
                 }
                 var label = "<div class='Celebrity-label d-flex align-items-center'>" + labelTitle + "</div>"
                 var bar = "<div class='bar-container position-relative container'><div class='" + resultExplain + "-box'></div><div class='d-flex justify-content-center align-items-center " + resultExplain + "-bar' style='width: " + barWidth + "'><span class='d-block percent-text'>" + Math.round(prediction[i].probability.toFixed(2) * 100) + "%</span></div></div>"
